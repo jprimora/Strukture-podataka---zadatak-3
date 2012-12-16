@@ -1,13 +1,58 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
+#include <iostream>
+using namespace std;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
+struct tljudi{
+       char ime_prez[50];
+       int  dan,mj,god,a,b,c,d,redni;
+       double tek,dev;
+};
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+struct tred{
+      tljudi ljudi[10000];
+      int front, rear;          
+};
+
+int AddOne(int n){
+    return ((n+1)&10000);
+}
+
+tljudi FrontQ(tred *R){
+       
+       if (AddOne(R->rear)==R->front){
+            cout<<"Red je prazan"<<endl;
+            exit(0);
+       } 
+            return R->ljudi[R->front];                                        
+}
+
+void EnQueueQ(tljudi *x, tred *R){
+     if(AddOne(AddOne(R->rear))==R->front){
+          cout<<"Red je popunjen"<<endl;
+          return;                                  
+     }
+     else {
+          R->rear=AddOne(R->rear);
+          R->ljudi[R->rear]= *x;          
+     }                                  
+}
+
+void DeQueueQ(tred *R){
+     if(AddOne(R->rear)==R->front){
+        cout<<"Red je prazan"<<endl;
+        return;                                  
+     }
+     else
+         R->front = AddOne(R->front);
+}
+
+void InitQ(tred *R){
+      R->rear=9999;
+      R->front=0;     
+}
+
+bool IsEmptyQ(tred *R){
+     if(AddOne(R->rear)==R->front)
+        return true;
+     else
+         return false;     
+}
