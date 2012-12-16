@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+
+struct tljudi{
+      char ime_prez[50];
+      int  dan,mj,god,a,b,c,d,redni;
+      double tek,dev;
+         
+};
+
+struct elem{
+       tljudi ljudi;
+       elem *next;
+             
+};
+
+struct tred{
+       elem *front,*rear;       
+};
+
+tljudi FrontQ(tred *R){
+       if(R->front ==R->rear){
+          cout<<"Red je prazan"<<endl;
+          exit(0);
+       }
+       else
+           return (R->front->next)->ljudi;                     
+}
+
+void EnQueueQ( tljudi *x, tred *R){
+     elem *novi = new elem;
+     memcpy(&(novi->ljudi), x, sizeof(tljudi));
+     (R->rear)->next = novi;
+     R-> rear =novi;     
+}
+
+void DeQueueQ(tred *R) {
+  if(R->front==R->rear){
+        cout<<"Red je prazan"<<endl;
+        return;
+    }
+	else{
+        elem *a;
+    	a= R->front;
+    	R->front = (R->front)->next;
+    	delete a;
+     }
+}
+
+void InitQ(tred *R){
+     elem *glava = new elem;
+     glava-> next = NULL;
+     R->front = glava;
+     R->rear = glava;     
+}
+
+bool IsEmptyQ(tred *R){
+     if (R->front==R->rear)
+         return true;
+     else
+	   return false;
+}
